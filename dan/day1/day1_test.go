@@ -205,7 +205,7 @@ var numbers = []int{
 	1968,
 }
 
-func TestDay1a(t *testing.T) {
+func TestDay1A(t *testing.T) {
 	for i := 0; i < len(numbers)-1; i++ {
 		a := numbers[i]
 		for j := i + 1; j < len(numbers); j++ {
@@ -220,7 +220,7 @@ func TestDay1a(t *testing.T) {
 	t.Error("Did not find numbers that add to 2020")
 }
 
-func TestDay1b(t *testing.T) {
+func TestDay1B(t *testing.T) {
 	for i := 0; i < len(numbers)-2; i++ {
 		a := numbers[i]
 		for j := i + 1; j < len(numbers)-1; j++ {
