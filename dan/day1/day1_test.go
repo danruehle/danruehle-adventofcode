@@ -217,7 +217,7 @@ func TestDay1a(t *testing.T) {
 			}
 		}
 	}
-	t.Fatal("Did not find numbers that add to 2020")
+	t.Error("Did not find numbers that add to 2020")
 }
 
 func TestDay1b(t *testing.T) {
@@ -235,5 +235,5 @@ func TestDay1b(t *testing.T) {
 			}
 		}
 	}
-	t.Fatal("Did not find numbers that add to 2020")
+	t.Error("Did not find numbers that add to 2020")
 }
