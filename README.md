@@ -23,4 +23,4 @@ Our leaderboard code is `1049195-39c2580f`
 
 ## Related repositories
 
-- <https://github.com/chadmiller/advent-of-code/blob/master/2020/3-2.py>
+- <https://github.com/chadmiller/advent-of-code>
