@@ -1095,7 +1095,7 @@ func (p passport) isValidB() bool {
 		p.invalid("hgt")
 		return false
 	}
-	suffix := s[len(s)-2 : len(s)]
+	suffix := s[len(s)-2:]
 	n, err = strconv.Atoi(s[0 : len(s)-2])
 	if suffix == "cm" {
 		if n < 150 || n > 193 {
