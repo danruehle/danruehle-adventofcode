@@ -20,3 +20,7 @@ Our leaderboard code is `1049195-39c2580f`
 - Install Visual Studio Code Extensions (File - Preferences - Extensions)
   - Go
   - GitLens
+
+## Related repositories
+
+- <https://github.com/chadmiller/advent-of-code/blob/master/2020/3-2.py>
