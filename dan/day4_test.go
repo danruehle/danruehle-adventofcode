@@ -1,4 +1,4 @@
-package day4
+package dan
 
 import (
 	"regexp"
@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-var lines = []string{
+var day4Lines = []string{
 	"eyr:2029 iyr:2013",
 	"hcl:#ceb3a1 byr:1939 ecl:blu",
 	"hgt:163cm",
@@ -1144,7 +1144,7 @@ func (p passport) isValidB() bool {
 
 func parsePassports() []passport {
 	var passports []passport
-	for l := lines; len(l) > 0; {
+	for l := day4Lines; len(l) > 0; {
 		var p passport
 		p, l = parsePassport(l)
 		passports = append(passports, p)
