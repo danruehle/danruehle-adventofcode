@@ -1,4 +1,4 @@
-package day2
+package dan
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-var values = []string{
+var day2Values = []string{
 	"1-4 j: jjjqzmgbjwpj",
 	"2-4 w: sckwwf",
 	"1-13 b: bcbbbbbbbbbbhbb",
@@ -1070,7 +1070,7 @@ func (p Policy) BDetails() string {
 
 func TestDay2A(t *testing.T) {
 	var validCount int
-	for i, v := range values {
+	for i, v := range day2Values {
 		policy := parsePolicy(v)
 		valid := policy.IsValidA()
 		if valid {
@@ -1083,7 +1083,7 @@ func TestDay2A(t *testing.T) {
 
 func TestDay2B(t *testing.T) {
 	var validCount int
-	for i, v := range values {
+	for i, v := range day2Values {
 		policy := parsePolicy(v)
 		valid := policy.IsValidB()
 		if valid {

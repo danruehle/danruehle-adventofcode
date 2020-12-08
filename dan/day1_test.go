@@ -1,8 +1,8 @@
-package day1
+package dan
 
 import "testing"
 
-var numbers = []int{
+var day1Numbers = []int{
 	1765,
 	1742,
 	1756,
@@ -206,10 +206,10 @@ var numbers = []int{
 }
 
 func TestDay1A(t *testing.T) {
-	for i := 0; i < len(numbers)-1; i++ {
-		a := numbers[i]
-		for j := i + 1; j < len(numbers); j++ {
-			b := numbers[j]
+	for i := 0; i < len(day1Numbers)-1; i++ {
+		a := day1Numbers[i]
+		for j := i + 1; j < len(day1Numbers); j++ {
+			b := day1Numbers[j]
 			if a+b == 2020 {
 				t.Logf("Numbers that sum to 2020: %d, %d", a, b)
 				t.Logf("Product: %d", a*b)
@@ -221,12 +221,12 @@ func TestDay1A(t *testing.T) {
 }
 
 func TestDay1B(t *testing.T) {
-	for i := 0; i < len(numbers)-2; i++ {
-		a := numbers[i]
-		for j := i + 1; j < len(numbers)-1; j++ {
-			b := numbers[j]
-			for k := j + 1; k < len(numbers); k++ {
-				c := numbers[k]
+	for i := 0; i < len(day1Numbers)-2; i++ {
+		a := day1Numbers[i]
+		for j := i + 1; j < len(day1Numbers)-1; j++ {
+			b := day1Numbers[j]
+			for k := j + 1; k < len(day1Numbers); k++ {
+				c := day1Numbers[k]
 				if a+b+c == 2020 {
 					t.Logf("Numbers that sum to 2020: %d, %d, %d", a, b, c)
 					t.Logf("Product: %d", a*b*c)

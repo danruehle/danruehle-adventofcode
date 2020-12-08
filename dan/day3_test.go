@@ -1,8 +1,8 @@
-package day3
+package dan
 
 import "testing"
 
-var lines = []string{
+var day3Lines = []string{
 	"...#...#....#....##...###....#.",
 	"#.#...#...#....#.........#..#..",
 	".#....##..#.#..##..##..........",
@@ -330,8 +330,8 @@ var lines = []string{
 
 func trees(right, down int) int {
 	var trees, column int
-	for i := 0; i < len(lines); i += down {
-		line := lines[i]
+	for i := 0; i < len(day3Lines); i += down {
+		line := day3Lines[i]
 		if column > len(line)-1 {
 			column -= len(line)
 		}

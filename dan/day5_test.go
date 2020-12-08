@@ -1,4 +1,4 @@
-package day5
+package dan
 
 import (
 	"sort"
@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var lines = []string{
+var day5Lines = []string{
 	"BBFBBBBRRL",
 	"FBFFFFBLRL",
 	"FBFBBFFRLR",
@@ -951,7 +951,7 @@ func parseTicket(s string) Ticket {
 
 func parseTickets() Tickets {
 	var tickets Tickets
-	for _, l := range lines {
+	for _, l := range day5Lines {
 		tickets = append(tickets, parseTicket(l))
 	}
 	return tickets
