@@ -3,7 +3,6 @@ package dan
 import (
 	"strconv"
 	"strings"
-
 )
 
 func ParseInt64s(input string) ([]int64, error) {
