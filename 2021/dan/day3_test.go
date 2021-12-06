@@ -1,6 +1,7 @@
 package dan
 
 import (
+	"strconv"
 	"strings"
 	"testing"
 )
@@ -1028,8 +1029,17 @@ func TestDay3a(t *testing.T) {
 
 func TestDay3b(t *testing.T) {
 	lines := strings.Split(day3input, "\n")
+	linesco2 := strings.Split(day3input, "\n")
+	oxygenString := Day3bCalc(t, lines, true)
+	co2String := Day3bCalc(t, linesco2, false)
+	t.Logf("Oxygen: %s CO2: %s", oxygenString, co2String)
+	oxygen, _ := strconv.ParseInt(oxygenString, 2, 64)
+	co2, _ := strconv.ParseInt(co2String, 2, 64)
+	t.Logf("Oxygen: %d CO2: %d, Product: %d", oxygen, co2, oxygen*co2)
+}
+
+func Day3bCalc(t *testing.T, lines []string, oxygen bool) string {
 	width := len(lines[0])
-	var gamma uint
 	for position := 0; position < width; position++ {
 		var ones int
 		for _, line := range lines {
@@ -1037,11 +1047,29 @@ func TestDay3b(t *testing.T) {
 				ones++
 			}
 		}
-		if ones > len(lines)/2 {
-			gamma = gamma + (1 << (width - position - 1))
+		t.Logf("Position: %d Ones count: %d Line count: %d", position, ones, len(lines))
+		if ones == 0 || ones == len(lines) {
+			continue
+		}
+		var valueToKeep byte = '0'
+		odd := len(lines)%2
+		if oxygen && ones >= (len(lines)/2+odd) {
+			valueToKeep = '1'
+		} else if !oxygen && ones < (len(lines)/2+odd) {
+			valueToKeep = '1'
+		}
+		var insert int
+		for index := 0; index < len(lines); index++ {
+			if lines[index][position] == valueToKeep {
+				lines[insert] = lines[index]
+				insert++
+			}
+		}
+		lines = lines[0:insert]
+		t.Logf("After keeping %v's in postion %d: %#v", string(valueToKeep), position, lines)
+		if len(lines) <= 1 {
+			break
 		}
 	}
-	epsilon := ^gamma & (uint(1)<<(width) - 1)
-	t.Logf("Gamma: %b Epsilon: %b", gamma, epsilon)
-	t.Logf("Gamma: %d Epsilon: %d Product: %d", gamma, epsilon, gamma*epsilon)
+	return lines[0]
 }

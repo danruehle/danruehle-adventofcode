@@ -1019,13 +1019,10 @@ func TestDay2a(t *testing.T) {
 		switch values[0] {
 		case "forward":
 			horizontal += amount
-			break
 		case "down":
 			depth += amount
-			break
 		case "up":
 			depth -= amount
-			break
 		}
 	}
 	t.Logf("Horizontal: %d Depth: %d Product: %d", horizontal, depth, horizontal*depth)
