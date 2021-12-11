@@ -1,6 +1,9 @@
 package dan
 
 import (
+	"errors"
+	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -507,10 +510,118 @@ var day5input = `260,605 -> 260,124
 857,100 -> 10,947
 893,115 -> 25,983`
 
+type Grid [1000][1000]int
+
+type Line struct {
+	x1, y1, x2, y2 int
+}
+
+func ParseLine(input string) (*Line, error) {
+	var line Line
+	var err error
+	input = strings.ReplaceAll(input, " ", "")
+	coords := strings.Split(input, "->")
+	if len(coords) != 2 {
+		return nil, errors.New("didn't fine two coordinates")
+	}
+	line.x1, line.y1, err = ParseCoordinate(coords[0])
+	if err != nil {
+		return nil, err
+	}
+	line.x2, line.y2, err = ParseCoordinate(coords[1])
+	if err != nil {
+		return nil, err
+	}
+	return &line, nil
+}
+
+func ParseCoordinate(coordinate string) (int, int, error) {
+	values := strings.Split(coordinate, ",")
+	if len(values) != 2 {
+		return 0, 0, errors.New("didn't find two values")
+	}
+	x, err := strconv.ParseInt(values[0], 10, 32)
+	if err != nil {
+		return 0, 0, err
+	}
+	y, err := strconv.ParseInt(values[1], 10, 32)
+	if err != nil {
+		return 0, 0, err
+	}
+	return int(x), int(y), nil
+}
+
+func (line *Line) Draw(grid *Grid, useDiagonals bool) {
+	if line.x1 == line.x2 {
+		y1, y2 := line.y1, line.y2
+		if y1 > y2 {
+			y1, y2 = y2, y1
+		}
+		for y := y1; y <= y2; y++ {
+			grid[line.x1][y]++
+		}
+	} else if line.y1 == line.y2 {
+		x1, x2 := line.x1, line.x2
+		if x1 > x2 {
+			x1, x2 = x2, x1
+		}
+		for x := x1; x <= x2; x++ {
+			grid[x][line.y1]++
+		}
+	} else if useDiagonals {
+		xIncrement, yIncrement := 1, 1
+		if line.x1 > line.x2 {
+			xIncrement = -1
+		}
+		if line.y1 > line.y2 {
+			yIncrement = -1
+		}
+		for x, y := line.x1, line.y1; x*xIncrement <= line.x2*xIncrement; {
+			grid[x][y]++
+			x += xIncrement
+			y += yIncrement
+		}
+	}
+}
+
+func (grid *Grid) Count2OrLarger() int {
+	var count int
+	for _, row := range grid {
+		for _, value := range row {
+			if value > 1 {
+				count++
+			}
+		}
+	}
+	return count
+}
+
 func TestDay5a(t *testing.T) {
-	require.NoError(t, nil)
+	var lines []*Line
+	for _, value := range strings.Split(day5input, "\n") {
+		line, err := ParseLine(value)
+		require.NoError(t, err, "failed to parse line: %s", value)
+		lines = append(lines, line)
+	}
+	var grid Grid
+	for _, line := range lines {
+		line.Draw(&grid, false)
+	}
+	count := grid.Count2OrLarger()
+	t.Logf("Number of spots 2 or larger: %d", count)
 }
 
 func TestDay5b(t *testing.T) {
-	require.NoError(t, nil)
+	var lines []*Line
+	for _, value := range strings.Split(day5input, "\n") {
+		line, err := ParseLine(value)
+		require.NoError(t, err, "failed to parse line: %s", value)
+		lines = append(lines, line)
+	}
+	var grid Grid
+	for _, line := range lines {
+		line.Draw(&grid, true)
+	}
+	count := grid.Count2OrLarger()
+	t.Logf("Number of spots 2 or larger: %d", count)
 }
