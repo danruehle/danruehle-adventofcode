@@ -1,6 +1,7 @@
 package dan
 
 import (
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -39,4 +40,11 @@ func ConvertInts(inputs []string) ([]int, error) {
 		values[i] = int(value)
 	}
 	return values, nil
+}
+
+func SortRunes(input string) string {
+	bytes := []byte(input)
+	runeSorter := func(l, r int) bool { return bytes[l] < bytes[r] }
+	sort.Slice(bytes, runeSorter)
+	return string(bytes)
 }
