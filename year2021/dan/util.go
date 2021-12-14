@@ -48,3 +48,11 @@ func SortRunes(input string) string {
 	sort.Slice(bytes, runeSorter)
 	return string(bytes)
 }
+
+func ByteArrays(lines []string) [][]byte {
+	byteArrays := make([][]byte, len(lines))
+	for x := 0; x < len(lines); x++ {
+		byteArrays[x] = []byte(lines[x])
+	}
+	return byteArrays
+}
