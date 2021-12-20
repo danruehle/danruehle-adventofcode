@@ -117,6 +117,16 @@ func (o *Octopuses) allFlashed() bool {
 	return true
 }
 
+func TestDay11aSample(t *testing.T) {
+	octopuses := &Octopuses{grid: ByteArrays(strings.Split(day11sample, "\n"))}
+	octopuses.normalize()
+	for step := 0; step < 100; step++ {
+		octopuses.step()
+		t.Logf("step %d:\n%s", step, octopuses.String())
+	}
+	t.Logf("total flashes: %d", octopuses.flashes)
+}
+
 func TestDay11a(t *testing.T) {
 	octopuses := &Octopuses{grid: ByteArrays(strings.Split(day11input, "\n"))}
 	octopuses.normalize()
