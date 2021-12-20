@@ -129,7 +129,7 @@ func (n *caveNode) traverseToEnd(t *testing.T, route caveRoute) []caveRoute {
 	return completeRoutes
 }
 
-func (n *caveNode) traverseToEndB(t *testing.T, route caveRoute, c chan string) {
+func (n *caveNode) traverseToEndB(t *testing.T, route caveRoute, smallCaveLimit int, c chan string) {
 	currentRoute := route.Copy()
 	currentRoute = append(currentRoute, n)
 	if n.id == "end" {
@@ -144,10 +144,13 @@ func (n *caveNode) traverseToEndB(t *testing.T, route caveRoute, c chan string) 
 		for _, node := range route {
 			if n.id == node.id {
 				visitedCount++
-				if visitedCount > 1 {
+				if visitedCount >= smallCaveLimit {
 					return
 				}
 			}
+		}
+		if visitedCount == 1 && smallCaveLimit == 2 {
+			smallCaveLimit = 1
 		}
 	}
 	if len(currentRoute)%5 == 0 {
@@ -156,13 +159,13 @@ func (n *caveNode) traverseToEndB(t *testing.T, route caveRoute, c chan string) 
 			wg.Add(1)
 			go func(n *caveNode) {
 				defer wg.Done()
-				n.traverseToEndB(t, currentRoute, c)
+				n.traverseToEndB(t, currentRoute, smallCaveLimit, c)
 			}(node)
 		}
 		wg.Wait()
 	} else {
 		for _, node := range n.routes {
-			node.traverseToEndB(t, currentRoute, c)
+			node.traverseToEndB(t, currentRoute, smallCaveLimit, c)
 		}
 	}
 }
@@ -182,7 +185,7 @@ func TestDay12b(t *testing.T) {
 	completeRoutes := 0
 	c := make(chan string, 50)
 	go func() {
-		caveMap.start.traverseToEndB(t, nil, c)
+		caveMap.start.traverseToEndB(t, nil, 2, c)
 		close(c)
 	}()
 	for r := range c {
